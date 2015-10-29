@@ -1,5 +1,8 @@
 class PostsController < ApplicationController
 
+	before_action :authenticate_user!, except: [:index, :show]
+
+
 	def index
 		@posts = Post.all.order("created_at DESC")
 	end
@@ -44,6 +47,7 @@ class PostsController < ApplicationController
 
 
 	private
+	
 	def post_params
 		params.require(:post).permit(:title, :body)
 	end
